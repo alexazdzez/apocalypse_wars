@@ -6,13 +6,18 @@ from monster import Monster
 class Game:
 
     def __init__(self):
-        self.player = Player()
+        self.all_players = pygame.sprite.Group()
+        self.player = Player(self)
+        self.all_players.add(self.player)
         self.pressed = {}
-        self.all_monsters = pygame.sprite.Group
+        self.all_monsters = pygame.sprite.Group()
         self.score = 0
         self.projectile_boost = True
         self.spawn_monster()
 
     def spawn_monster(self):
-        monster = Monster()
-        self.all_monsters.add(monster)
+        self.all_monsters.add(Monster(self))
+
+    def check_colision(self, sprite, group):
+        return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
+
