@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((1280, 670))
 background = pygame.image.load('assets/bg.jpg')
 
 game = Game()
-
+#
 running = True
 
 while running:
