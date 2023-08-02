@@ -26,6 +26,8 @@ while running:
 
     game.player.all_projectiles.draw(screen)
 
+    game.all_monsters.draw(screen)
+
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x < 1100:
         game.player.move_right()
     elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
