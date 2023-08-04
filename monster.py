@@ -6,7 +6,7 @@ class Monster(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
-        self.velocity = 1 + random.randint(0, 1)
+        self.velocity = random.randint(1, 2)
         self.game = game
         self.loot = 10
         self.health = 100
@@ -21,7 +21,8 @@ class Monster(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.addscore(self.loot)
-            self.rect.x = 1200
+            self.velocity = random.randint(1, 2)
+            self.rect.x = 1200 + random.randint(0, 300)
             self.health = self.max_health
 
     def update_health_bar(self, surface):
