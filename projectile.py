@@ -17,6 +17,7 @@ class Projectile(pygame.sprite.Sprite):
         self.player.all_projectiles.remove(self)
 
     def move(self):
-        self.rect.x += self.velocity
-        if self.rect.x > 1100:
+        if self.player.game.check_colision(self, self.player.game.all_monsters) or self.rect.x + self.velocity > 1100:
             self.remove()
+        else:
+            self.rect.x += self.velocity
