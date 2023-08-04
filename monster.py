@@ -7,6 +7,7 @@ class Monster(pygame.sprite.Sprite):
         super().__init__()
         self.velocity = 2
         self.game = game
+        self.loot = 10
         self.health = 100
         self.max_health = 100
         self.attack = 5
@@ -15,11 +16,20 @@ class Monster(pygame.sprite.Sprite):
         self.rect.x = 1200
         self.rect.y = 550
 
+    def damage(self, amount):
+        self.health -= amount
+        if self.health <= 0:
+            self.game.addscore(self.loot)
+            self.rect.x = 1200
+            self.health = self.max_health
 
     def update_health_bar(self, surface):
         bar_color = (51, 222, 77)
-        bar_position = [self.rect.x, self.rect.y, self.health, 5]
+        back_bar_color = (60, 63, 60)
+        bar_position = [self.rect.x + 10, self.rect.y - 10, self.health, 5]
+        back_bar_position = [self.rect.x + 10, self.rect.y - 10, self.max_health, 5]
 
+        pygame.draw.rect(surface, back_bar_color, back_bar_position)
         pygame.draw.rect(surface, bar_color, bar_position)
 
     def forward(self):

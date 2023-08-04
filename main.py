@@ -25,10 +25,12 @@ while running:
 
     for monster in game.all_monsters:
         monster.forward()
+        monster.update_health_bar(screen)
 
     game.player.all_projectiles.draw(screen)
 
     game.all_monsters.draw(screen)
+
 
 
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x < 1100:
@@ -40,7 +42,11 @@ while running:
             game.projectile_boost = True
             game.player.launch_projectile()
         else:
-            game.projectile_boost = False
+            if 300 < game.score < 500:
+                game.projectile_boost = True
+                game.player.launch_projectile()
+            else:
+                game.projectile_boost = False
 
     pygame.display.flip()
 

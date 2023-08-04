@@ -18,6 +18,9 @@ class Game:
     def spawn_monster(self):
         self.all_monsters.add(Monster(self))
 
+    def addscore(self, add):
+        self.score += add
+
     def check_colision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
 
