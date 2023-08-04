@@ -14,6 +14,7 @@ class Game:
         self.score = 0
         self.projectile_boost = True
         self.spawn_monster()
+        self.spawn_monster()
 
     def spawn_monster(self):
         self.all_monsters.add(Monster(self))
