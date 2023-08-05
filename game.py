@@ -19,7 +19,7 @@ class Game:
 
     def start(self):
         self.is_playing = True
-        self.player.rect = self.player.normal_rectj
+        self.player.rect = self.player.normal_rect
         self.spawn_monster()
         self.spawn_monster()
 
