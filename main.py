@@ -1,4 +1,5 @@
 import pygame
+import math
 from game import Game
 
 pygame.init()
@@ -10,6 +11,18 @@ pygame.display.set_icon(iconapp)
 screen = pygame.display.set_mode((1230, 670))
 
 background = pygame.image.load('assets/bg.jpg')
+
+playimg = pygame.transform.scale(pygame.image.load('assets/banner.png'), (500, 500))
+
+playimg_rect = playimg.get_rect()
+playimg_rect.x = math.ceil(screen.get_width() / 4)
+
+playbt = pygame.transform.scale(pygame.image.load('assets/button.png'), (400, 150))
+
+playbt_rect = playbt.get_rect()
+playbt_rect.x = math.ceil(screen.get_width() / 3.33)
+playbt_rect.y = math.ceil(screen.get_height() / 1.8)
+
 game = Game()
 #
 running = True
@@ -18,35 +31,11 @@ while running:
 
     screen.blit(background, (0, 0))
 
-    screen.blit(game.player.image, game.player.rect)
-
-    for projectile in game.player.all_projectiles:
-        projectile.move()
-
-    for monster in game.all_monsters:
-        monster.forward()
-        monster.update_health_bar(screen)
-
-    game.player.all_projectiles.draw(screen)
-
-    game.all_monsters.draw(screen)
-
-
-
-    if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x < 1100:
-        game.player.move_right()
-    elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
-        game.player.move_left()
-    if game.pressed.get(pygame.K_SPACE):
-        if game.score < 100:
-            game.projectile_boost = True
-            game.player.launch_projectile()
-        else:
-            if 300 < game.score < 500:
-                game.projectile_boost = True
-                game.player.launch_projectile()
-            else:
-                game.projectile_boost = False
+    if game.is_playing:
+        game.update(screen)
+    else:
+        screen.blit(playbt, playbt_rect)
+        screen.blit(playimg, playimg_rect)
 
     pygame.display.flip()
 
@@ -62,3 +51,6 @@ while running:
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if playbt_rect.collidepoint(event.pos):
+                game.start()
