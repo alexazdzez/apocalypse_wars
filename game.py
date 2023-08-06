@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+from tank_event import TankEntranceEvent
 from enemies import Monster
 
 
@@ -8,6 +9,7 @@ class Game:
     def __init__(self):
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
+        self.TankEntranceEvent = TankEntranceEvent()
         self.all_players.add(self.player)
         self.pressed = {}
         self.all_monsters = pygame.sprite.Group()
@@ -40,6 +42,8 @@ class Game:
         self.player.all_projectiles.draw(screen)
 
         self.player.update_health_bar(screen)
+
+        self.TankEntranceEvent.update_bar(surface=screen)
 
         for monster in self.all_monsters:
             monster.forward()
