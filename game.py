@@ -30,6 +30,8 @@ class Game:
         self.all_monsters = pygame.sprite.Group()
         self.player.health = self.player.normal_health
         self.chance = self.normal_chance
+        self.TankEntranceEvent.percent = 0
+        self.score = 0
         self.is_playing = False
 
 
