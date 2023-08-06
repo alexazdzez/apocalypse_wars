@@ -1,5 +1,5 @@
 import pygame
-from projectile import Projectile
+from player_attack import Projectile
 
 
 class Player(pygame.sprite.Sprite):

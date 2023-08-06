@@ -1,6 +1,6 @@
 import pygame
 from player import Player
-from monster import Monster
+from enemies import Monster
 
 
 class Game:
