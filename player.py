@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (51, 222, 77), [self.rect.x + 10, self.rect.y - 10, self.health, 5])
 
     def move_right(self):
-        if not self.game.check_colision(self, self.game.all_monsters):
+        if not pygame.sprite.spritecollide(self, self.game.all_monsters, False, pygame.sprite.collide_mask):
             self.rect.x += self.velocity
 
     def move_left(self):
@@ -44,4 +44,4 @@ class Player(pygame.sprite.Sprite):
 
     #
     def launch_projectile(self):
-        self.all_projectiles.add(Projectile(self))
+        self.all_projectiles.add(Projectile(self, self.game))

@@ -1,7 +1,7 @@
 import pygame
 from player import Player
 from tank_event import TankEntranceEvent
-from enemies import Monster
+from enemies import Enemies
 
 
 class Game:
@@ -9,8 +9,9 @@ class Game:
     def __init__(self):
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
-        self.TankEntranceEvent = TankEntranceEvent()
         self.all_players.add(self.player)
+        self.all_tanks = pygame.sprite.Group
+        self.TankEntranceEvent = TankEntranceEvent(self)
         self.pressed = {}
         self.all_monsters = pygame.sprite.Group()
         self.score = 0
@@ -32,7 +33,7 @@ class Game:
         self.chance = self.normal_chance
         self.TankEntranceEvent.percent = 0
         self.score = 0
-        self.is_playing = False
+        self.is_playing = True
 
 
     def update(self, screen):
@@ -53,7 +54,9 @@ class Game:
 
         self.all_monsters.draw(screen)
 
-
+        self.TankEntranceEvent.all_tanks.draw(screen)
+        self.TankEntranceEvent.update()
+        self.all_tanks.f
 
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x < 1100:
             self.player.move_right()
@@ -74,11 +77,11 @@ class Game:
 
 
     def spawn_monster(self):
-        self.all_monsters.add(Monster(self))
+        self.all_monsters.add(Enemies(self))
 
-    def addscore(self, add):
+    def add_score(self, add):
         self.score += add
 
-    def check_colision(self, sprite, group):
-        return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
+    def check_colision(self, group2):
+        return pygame.sprite.spritecollide(self, group2, False, pygame.sprite.collide_mask)
 

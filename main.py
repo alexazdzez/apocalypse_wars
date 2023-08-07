@@ -4,7 +4,6 @@ from game import Game
 
 pygame.init()
 
-
 iconapp = pygame.image.load('assets/icon.png')
 pygame.display.set_caption("Apocalypse Wars")
 pygame.display.set_icon(iconapp)
@@ -46,7 +45,7 @@ while running:
             pygame.quit()
 
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and game.projectile_boost == False:
+            if event.key == pygame.K_SPACE and not game.projectile_boost == False:
                 game.player.launch_projectile()
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:

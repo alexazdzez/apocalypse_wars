@@ -2,7 +2,7 @@ import pygame
 import random
 
 
-class Monster(pygame.sprite.Sprite):
+class Enemies(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
@@ -20,7 +20,7 @@ class Monster(pygame.sprite.Sprite):
     def damage(self, amount):
         self.health -= amount
         if self.health <= 0:
-            self.game.addscore(self.loot)
+            self.game.add_score(self.loot)
             self.velocity = random.randint(1, 2)
             self.rect.x = 1200 + random.randint(0, 300)
             self.health = self.max_health
@@ -30,7 +30,7 @@ class Monster(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (51, 222, 77), [self.rect.x + 10, self.rect.y - 10, self.health, 5])
 
     def forward(self):
-        if not self.game.check_colision(self, self.game.all_players):
+        if not pygame.sprite.spritecollide(self, self.game.all_players, False, pygame.sprite.collide_mask):
             self.rect.x -= self.velocity
         else:
             self.game.player.damage(self.attack)
