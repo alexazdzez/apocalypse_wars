@@ -18,7 +18,7 @@ class TankEntranceEvent:
         return self.percent >= 100
 
     def update(self):
-        Tank.forward()
+        Tank.forward(self.tank)
 
     def reset_percent(self):
         self.percent = 0
