@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+from tank import Tank
 from tank_event import TankEntranceEvent
 from enemies import Enemies
 
@@ -54,9 +55,8 @@ class Game:
 
         self.all_monsters.draw(screen)
 
-        self.TankEntranceEvent.all_tanks.draw(screen)
+        self.all_tanks.draw(screen)
         self.TankEntranceEvent.update()
-        self.all_tanks.f
 
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x < 1100:
             self.player.move_right()
@@ -78,6 +78,9 @@ class Game:
 
     def spawn_monster(self):
         self.all_monsters.add(Enemies(self))
+
+    def spawn_tank(self):
+        self.all_tanks.add(Tank(self))
 
     def add_score(self, add):
         self.score += add

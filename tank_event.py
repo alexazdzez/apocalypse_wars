@@ -7,7 +7,6 @@ class TankEntranceEvent:
     def __init__(self, game):
         self.game = game
         self.percent = 0
-        self.tank = Tank()
         self.percent_speed = 50
         self.all_tanks = pygame.sprite.Group()
 
@@ -24,7 +23,7 @@ class TankEntranceEvent:
         self.percent = 0
 
     def tanks_entrance(self):
-        self.game.all_tanks.add(self.tank)
+        self.game.spawn_tank()
 
     def attempt_tank(self):
         if self.is_full_loaded():
