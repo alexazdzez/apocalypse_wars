@@ -1,23 +1,21 @@
 import pygame
 
-from tank import Tank
-
 
 class TankEntranceEvent:
     def __init__(self, game):
         self.game = game
-        self.percent = 0
-        self.percent_speed = 50
+        self.percent = 1
+        self.is_wait = False
+        self.nb_cycle = 1
+        self.percent_speed = 5 + self.nb_cycle
         self.all_tanks = pygame.sprite.Group()
+        self.tank_mode = False
 
     def add_percent(self):
         self.percent += self.percent_speed / 100
 
     def is_full_loaded(self):
         return self.percent >= 100
-
-    def update(self):
-        Tank.forward(self.tank)
 
     def reset_percent(self):
         self.percent = 0
@@ -26,9 +24,15 @@ class TankEntranceEvent:
         self.game.spawn_tank()
 
     def attempt_tank(self):
-        if self.is_full_loaded():
+        if self.is_full_loaded() and len(self.game.all_monsters) == 0:
             self.reset_percent()
+            self.tank_mode = True
+            self.nb_cycle += 1
             self.tanks_entrance()
+        elif self.is_full_loaded():
+            self.is_wait = True
+
+
 
     def update_bar(self, surface):
         self.add_percent()

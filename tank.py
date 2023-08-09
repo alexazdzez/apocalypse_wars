@@ -1,5 +1,4 @@
 import pygame
-import random
 
 
 class Tank(pygame.sprite.Sprite):
@@ -14,13 +13,14 @@ class Tank(pygame.sprite.Sprite):
         self.attack = 0.5
         self.image = pygame.image.load('assets/tank.png')
         self.rect = self.image.get_rect()
-        self.rect.x = 1200 + random.randint(0, 300)
+        self.rect.x = 1200
         self.rect.y = 550
 
     def damage(self, amount):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
+            self.game.all_tanks.remove(self)
 
     def update_health_bar(self, surface):
         pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 10, self.rect.y - 10, self.max_health, 5])

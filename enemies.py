@@ -21,9 +21,12 @@ class Enemies(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
-            self.velocity = random.randint(1, 2)
-            self.rect.x = 1200 + random.randint(0, 300)
-            self.health = self.max_health
+            if not self.game.TankEntranceEvent.is_wait:
+                self.velocity = random.randint(1, 2)
+                self.rect.x = 1200 + random.randint(0, 300)
+                self.health = self.max_health
+            else:
+                self.game.all_monsters.remove(self)
 
     def update_health_bar(self, surface):
         pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 10, self.rect.y - 10, self.max_health, 5])

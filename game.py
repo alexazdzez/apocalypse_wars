@@ -11,7 +11,7 @@ class Game:
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
         self.all_players.add(self.player)
-        self.all_tanks = pygame.sprite.Group
+        self.all_tanks = pygame.sprite.Group()
         self.TankEntranceEvent = TankEntranceEvent(self)
         self.pressed = {}
         self.all_monsters = pygame.sprite.Group()
@@ -47,7 +47,7 @@ class Game:
 
         self.player.update_health_bar(screen)
 
-        self.TankEntranceEvent.update_bar(surface=screen)
+        self.TankEntranceEvent.update_bar(screen)
 
         for monster in self.all_monsters:
             monster.forward()
@@ -56,7 +56,8 @@ class Game:
         self.all_monsters.draw(screen)
 
         self.all_tanks.draw(screen)
-        self.TankEntranceEvent.update()
+        for tank in self.all_tanks:
+            tank.forward()
 
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x < 1100:
             self.player.move_right()
