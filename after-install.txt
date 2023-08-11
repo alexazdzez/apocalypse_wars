@@ -1,2 +1,2 @@
-This game as created and coded by one person.
+This game was created and coded by one person.
 To run this game launch run.py but install python 3.11 before
