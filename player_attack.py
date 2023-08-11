@@ -19,8 +19,11 @@ class Projectile(pygame.sprite.Sprite):
 
     def move(self):
         self.rect.x += self.velocity
-        for monster in pygame.sprite.spritecollide(self, self.game.all_monsters, False, pygame.sprite.collide_mask):
+        for monsters in pygame.sprite.spritecollide(self, self.game.all_monsters, False, pygame.sprite.collide_mask):
             self.remove()
-            monster.damage(self.player.attack)
+            monsters.damage(self.player.attack)
+        for tanks in pygame.sprite.spritecollide(self, self.game.all_tanks, False, pygame.sprite.collide_mask):
+            self.remove()
+            tanks.damage(self.player.attack)
         if self.rect.x == 1200:
             self.remove()

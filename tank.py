@@ -23,8 +23,8 @@ class Tank(pygame.sprite.Sprite):
             self.game.all_tanks.remove(self)
 
     def update_health_bar(self, surface):
-        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 10, self.rect.y - 10, self.max_health, 5])
-        pygame.draw.rect(surface, (51, 222, 77), [self.rect.x + 10, self.rect.y - 10, self.health, 5])
+        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 70, self.rect.y + 5, self.max_health, 5])
+        pygame.draw.rect(surface, (51, 222, 77), [self.rect.x + 70, self.rect.y + 5, self.health, 5])
 
     def forward(self):
         if not pygame.sprite.spritecollide(self, self.game.all_players, False, pygame.sprite.collide_mask):

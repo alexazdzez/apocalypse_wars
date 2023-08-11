@@ -34,7 +34,7 @@ class Game:
         self.chance = self.normal_chance
         self.TankEntranceEvent.percent = 0
         self.score = 0
-        self.is_playing = True
+        self.is_playing = False
 
 
     def update(self, screen):
@@ -58,6 +58,7 @@ class Game:
         self.all_tanks.draw(screen)
         for tank in self.all_tanks:
             tank.forward()
+            tank.update_health_bar(screen)
 
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x < 1100:
             self.player.move_right()
