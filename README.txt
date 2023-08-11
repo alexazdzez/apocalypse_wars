@@ -11,3 +11,4 @@ V1.5.4 SNAPSHOT : README updated, tank updated, game update, tank_event update, 
 V1.6 SNAPSHOT: README updated, game updated, tank updated, tank_event updated, player.png and tank.png updated, enemies updated, push complied
 V1.6.1: README updated, player_attack updated, game updated, tank updated, push complied
 V1.6.2 : README updated, after-install created, README created, main renamed for run
+V1.6.4 : double README updated, run updated, 1 patch applied, push complied

@@ -22,4 +22,6 @@ V1.6.1: README updated, player_attack updated, game updated, tank updated, push 
 
 V1.6.2 : README updated, after-install created, README created, main renamed for run, push complied
 
-V1.6.3 : README updated, after-install updated, first relise created, push complied
+V1.6.3 : double README updated, after-install updated, first relise created, push complied
+
+V1.6.4 : double README updated, run updated, 1 patch applied, push complied
