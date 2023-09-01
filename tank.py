@@ -21,6 +21,8 @@ class Tank(pygame.sprite.Sprite):
         if self.health <= 0:
             self.game.add_score(self.loot)
             self.game.all_tanks.remove(self)
+            self.game.spawn_monster()
+            self.game.spawn_monster()
 
     def update_health_bar(self, surface):
         pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 70, self.rect.y + 5, self.max_health, 5])
