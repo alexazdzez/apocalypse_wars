@@ -10,6 +10,7 @@ class Game:
     def __init__(self):
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
+        self.tank = Tank(self)
         self.all_players.add(self.player)
         self.all_tanks = pygame.sprite.Group()
         self.TankEntranceEvent = TankEntranceEvent(self)
@@ -41,8 +42,13 @@ class Game:
 
         for projectile in self.player.all_projectiles:
             projectile.move()
+        for obus in self.tank.all_obus:
+            obus.move()
 
         self.player.all_projectiles.draw(screen)
+
+        self.tank.all_obus.draw(screen)
+
 
         self.player.update_health_bar(screen)
 
@@ -78,7 +84,4 @@ class Game:
 
     def restart_cycle(self):
         self.TankEntranceEvent.is_wait = False
-
-    def check_colision(self, group2):
-        return pygame.sprite.spritecollide(self, group2, False, pygame.sprite.collide_mask)
 
