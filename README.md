@@ -27,3 +27,5 @@ V1.6.3 : double README updated, after-install updated, first release created, pu
 V1.6.4 : double README updated, run updated, 1 patch applied, push complied
 
 V1.6.5 : double README updated, run updated, 1 release created, push complied
+
+V1.7 : double README updated, game updated, run updated, tank updated, assets updated, push complied

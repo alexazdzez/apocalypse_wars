@@ -22,6 +22,7 @@ class Tank(pygame.sprite.Sprite):
             self.game.add_score(self.loot)
             self.game.all_tanks.remove(self)
             self.game.spawn_monster()
+            self.game.restart_cycle()
             self.game.spawn_monster()
 
     def update_health_bar(self, surface):

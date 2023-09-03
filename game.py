@@ -19,7 +19,6 @@ class Game:
         self.normal_chance = 2
         self.chance = 2
         self.is_playing = False
-        self.projectile_boost = True
 
     def start(self):
         self.is_playing = True
@@ -64,16 +63,6 @@ class Game:
             self.player.move_right()
         elif self.pressed.get(pygame.K_LEFT) and self.player.rect.x > 0:
             self.player.move_left()
-        if self.pressed.get(pygame.K_SPACE):
-            if self.score < 100:
-                self.projectile_boost = True
-                self.player.launch_projectile()
-            else:
-                if 300 < self.score < 500:
-                    self.projectile_boost = True
-                    self.player.launch_projectile()
-                else:
-                    self.projectile_boost = False
 
         pygame.display.flip()
 
@@ -86,6 +75,9 @@ class Game:
 
     def add_score(self, add):
         self.score += add
+
+    def restart_cycle(self):
+        self.TankEntranceEvent.is_wait = False
 
     def check_colision(self, group2):
         return pygame.sprite.spritecollide(self, group2, False, pygame.sprite.collide_mask)
