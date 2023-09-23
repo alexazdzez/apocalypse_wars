@@ -9,13 +9,12 @@ class Obus(pygame.sprite.Sprite):
         self.tank = tank
         self.game = game
         self.image = pygame.image.load('assets/projectile.png')
-        self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
         self.rect.x = tank.rect.x + 120
         self.rect.y = tank.rect.y + 20
 
     def remove(self):
-        self.tank.all_projectiles.remove(self)
+        self.tank.all_obus.remove(self)
 
     def move(self):
         self.rect.x -= self.velocity

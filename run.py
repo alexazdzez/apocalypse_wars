@@ -55,3 +55,5 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if playbt_rect.collidepoint(event.pos):
                 game.start()
+        elif event.type == game.tank.tir:
+            game.tank.launch_projectile()

@@ -9,6 +9,7 @@ class Tank(pygame.sprite.Sprite):
         self.velocity = 1
         self.game = game
         self.loot = 10
+        self.tir = pygame.USEREVENT + 1
         self.health = 100
         self.max_health = 100
         self.all_obus = pygame.sprite.Group()
@@ -38,5 +39,4 @@ class Tank(pygame.sprite.Sprite):
     def forward(self):
         if not pygame.sprite.spritecollide(self, self.game.all_players, False, pygame.sprite.collide_mask):
             self.rect.x -= self.velocity
-        if 51 >= self.health >= 39:
-            self.launch_projectile()
+        pygame.time.set_timer(self.tir, 3000)
