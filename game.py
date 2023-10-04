@@ -42,13 +42,8 @@ class Game:
 
         for projectile in self.player.all_projectiles:
             projectile.move()
-        for obus in self.tank.all_obus:
-            obus.move()
 
         self.player.all_projectiles.draw(screen)
-
-        self.tank.all_obus.draw(screen)
-
 
         self.player.update_health_bar(screen)
 

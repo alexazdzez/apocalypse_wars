@@ -42,6 +42,5 @@ class Player(pygame.sprite.Sprite):
     def move_left(self):
         self.rect.x -= self.velocity
 
-    #
     def launch_projectile(self):
         self.all_projectiles.add(Projectile(self, self.game))
