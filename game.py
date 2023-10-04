@@ -38,6 +38,10 @@ class Game:
 
 
     def update(self, screen):
+        font = pygame.font.SysFont("monospace", 16)
+        score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
+        screen.blit(score_text, (200, 20))
+
         screen.blit(self.player.image, self.player.rect)
 
         for projectile in self.player.all_projectiles:

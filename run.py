@@ -4,6 +4,9 @@ from game import Game
 
 pygame.init()
 
+clock = pygame.time.Clock()
+FPS = 120
+
 iconapp = pygame.image.load('assets/icon.png')
 pygame.display.set_caption("Apocalypse Wars")
 pygame.display.set_icon(iconapp)
@@ -55,3 +58,4 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if playbt_rect.collidepoint(event.pos):
                 game.start()
+    clock.tick(FPS)
