@@ -5,7 +5,7 @@ from game import Game
 pygame.init()
 
 clock = pygame.time.Clock()
-FPS = 120
+FPS = 512
 
 iconapp = pygame.image.load('assets/icon.png')
 pygame.display.set_caption("Apocalypse Wars")
