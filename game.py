@@ -27,6 +27,8 @@ class Game:
         self.spawn_monster()
         self.spawn_monster()
 
+    def setting(self):
+        print("plop")
 
     def game_over(self):
         self.all_monsters = pygame.sprite.Group()

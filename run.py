@@ -21,9 +21,13 @@ playimg_rect.x = math.ceil(screen.get_width() / 4)
 
 playbt = pygame.transform.scale(pygame.image.load('assets/button.png'), (400, 150))
 
+settingbt = pygame.transform.scale(pygame.image.load('assets/setting.jpeg'), (150, 100))
+
 playbt_rect = playbt.get_rect()
 playbt_rect.x = math.ceil(screen.get_width() / 3.33)
 playbt_rect.y = math.ceil(screen.get_height() / 1.8)
+
+settingbt_rect = playbt.get_rect()
 
 game = Game()
 #
@@ -38,6 +42,7 @@ while running:
     else:
         screen.blit(playbt, playbt_rect)
         screen.blit(playimg, playimg_rect)
+        screen.blit(settingbt, (0, 575))
 
     pygame.display.flip()
 
@@ -58,4 +63,6 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if playbt_rect.collidepoint(event.pos):
                 game.start()
+            if settingbt_rect.collidepoint(event.pos):
+                game.setting()
     clock.tick(FPS)
