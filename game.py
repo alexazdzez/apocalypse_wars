@@ -12,6 +12,8 @@ class Game:
         self.player = Player(self)
         self.tank = Tank(self)
         self.all_players.add(self.player)
+        self.best_score = 0
+        self.difficulty = 2
         self.all_tanks = pygame.sprite.Group()
         self.TankEntranceEvent = TankEntranceEvent(self)
         self.pressed = {}
@@ -19,30 +21,54 @@ class Game:
         self.score = 0
         self.normal_chance = 2
         self.chance = 2
-        self.is_playing = False
+        self.is_playing = 0
 
     def start(self):
-        self.is_playing = True
+        self.is_playing = 1
         self.player.rect = self.player.normal_rect
-        self.spawn_monster()
-        self.spawn_monster()
+        if self.difficulty == 1:
+            self.spawn_monster()
+            self.spawn_monster()
+        elif self.difficulty == 2:
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+        elif self.difficulty == 3:
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+        elif self.difficulty == 4:
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
 
     def setting(self):
-        print("plop")
+        self.is_playing = 2
 
     def game_over(self):
         self.all_monsters = pygame.sprite.Group()
         self.player.health = self.player.normal_health
         self.chance = self.normal_chance
         self.TankEntranceEvent.percent = 0
+        if self.score > self.best_score:
+            self.best_score = self.score
         self.score = 0
-        self.is_playing = False
+        self.is_playing = 0
 
 
     def update(self, screen):
         font = pygame.font.SysFont("monospace", 16)
+
         score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
-        screen.blit(score_text, (200, 20))
+        best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
+
+        screen.blit(score_text, (100, 20))
+        if self.is_playing == 1:
+            screen.blit(best_score_text, (100, 40))
 
         screen.blit(self.player.image, self.player.rect)
 
