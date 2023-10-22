@@ -34,6 +34,7 @@ difficultybt_rect.y = math.ceil(screen.get_height() / 2.5)
 game = Game()
 
 running = True
+# noinspection PyBroadException
 try:
     file = open('assets/saves/save', 'rb')
     sauvegarde = pickle.load(file)
@@ -81,14 +82,6 @@ while running:
                     pygame.quit()
             elif event.key == pygame.K_SPACE:
                 game.player.launch_projectile()
-            elif event.key == pygame.K_s:
-                file = open('assets/saves/save', 'wb')
-                sauvegarde = [
-                    game.difficulty,
-                    game.best_score
-                ]
-                pickle.dump(sauvegarde, file)
-                file.close()
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False

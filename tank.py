@@ -1,5 +1,4 @@
 import pygame
-from tank_attack import Obus
 
 
 class Tank(pygame.sprite.Sprite):

@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from tank import Tank
+import pickle
 from tank_event import TankEntranceEvent
 from enemies import Enemies
 
@@ -50,6 +51,13 @@ class Game:
         self.is_playing = 2
 
     def game_over(self):
+        file = open('assets/saves/save', 'wb')
+        sauvegarde = [
+            self.difficulty,
+            self.best_score
+        ]
+        pickle.dump(sauvegarde, file)
+        file.close()
         self.all_monsters = pygame.sprite.Group()
         self.player.all_projectiles = pygame.sprite.Group()
         self.player.health = self.player.normal_health
