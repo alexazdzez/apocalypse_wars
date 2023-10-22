@@ -51,6 +51,7 @@ class Game:
 
     def game_over(self):
         self.all_monsters = pygame.sprite.Group()
+        self.player.all_projectiles = pygame.sprite.Group()
         self.player.health = self.player.normal_health
         self.chance = self.normal_chance
         self.TankEntranceEvent.percent = 0

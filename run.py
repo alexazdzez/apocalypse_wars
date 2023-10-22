@@ -1,5 +1,6 @@
-import pygame
 import math
+import pygame
+import pickle
 from game import Game
 
 pygame.init()
@@ -31,9 +32,16 @@ difficultybt_rect.x = math.ceil(screen.get_width() / 2.5)
 difficultybt_rect.y = math.ceil(screen.get_height() / 2.5)
 
 game = Game()
-#
-running = True
 
+running = True
+try:
+    file = open('assets/saves/save', 'rb')
+    sauvegarde = pickle.load(file)
+    game.difficulty = sauvegarde[0]
+    game.best_score = sauvegarde[1]
+    file.close()
+except:
+    pass
 while running:
 
     screen.blit(background, (0, 0))
@@ -69,9 +77,18 @@ while running:
                 elif game.is_playing == 2:
                     game.is_playing = 0
                 else:
+                    running = False
                     pygame.quit()
             elif event.key == pygame.K_SPACE:
                 game.player.launch_projectile()
+            elif event.key == pygame.K_s:
+                file = open('assets/saves/save', 'wb')
+                sauvegarde = [
+                    game.difficulty,
+                    game.best_score
+                ]
+                pickle.dump(sauvegarde, file)
+                file.close()
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
