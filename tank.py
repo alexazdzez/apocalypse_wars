@@ -1,5 +1,7 @@
 import pygame
 
+from run import game
+
 
 class Tank(pygame.sprite.Sprite):
 
@@ -8,7 +10,6 @@ class Tank(pygame.sprite.Sprite):
         self.game = game
         self.loot = 10
         self.velocity = 1
-        self.tir = pygame.USEREVENT + 1
         self.health = 100
         self.max_health = 100
         self.attack = 0.1
@@ -21,6 +22,16 @@ class Tank(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
+            if game.difficulty == 1:
+                self.game.player.add_projectile(4)
+            if game.difficulty == 2:
+                self.game.player.add_projectile(3)
+            if game.difficulty == 3:
+                self.game.player.add_projectile(2)
+            if game.difficulty == 4:
+                self.game.player.add_projectile(1)
+            if game.difficulty == 5:
+                self.game.player.add_projectile(0.5)
             self.game.all_tanks.remove(self)
             self.game.spawn_monster()
             self.game.restart_cycle()

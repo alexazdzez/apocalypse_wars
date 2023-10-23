@@ -21,7 +21,16 @@ class Game:
         self.all_monsters = pygame.sprite.Group()
         self.score = 0
         self.normal_chance = 2
-        self.chance = 2
+        if self.difficulty == 1:
+            self.chance = 3
+        elif self.difficulty == 2:
+            self.chance = 2
+        elif self.difficulty == 3:
+            self.chance = 2
+        elif self.difficulty == 4:
+            self.chance = 1
+        elif self.difficulty == 5:
+            self.chance = 0
         self.is_playing = 0
 
     def start(self):
@@ -46,6 +55,12 @@ class Game:
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
+        elif self.difficulty == 5:
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_monster()
+            self.spawn_tank()
 
     def setting(self):
         self.is_playing = 2
@@ -76,30 +91,26 @@ class Game:
         best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
 
         screen.blit(score_text, (100, 20))
-        if self.is_playing == 1:
-            screen.blit(best_score_text, (100, 40))
+        screen.blit(best_score_text, (100, 40))
 
+        self.all_monsters.draw(screen)
+        self.all_tanks.draw(screen)
+        self.player.all_projectiles.draw(screen)
+        self.player.update_health_bar(screen)
         screen.blit(self.player.image, self.player.rect)
 
         for projectile in self.player.all_projectiles:
             projectile.move()
 
-        self.player.all_projectiles.draw(screen)
-
-        self.player.update_health_bar(screen)
-
-        self.TankEntranceEvent.update_bar(screen)
-
         for monster in self.all_monsters:
             monster.forward()
             monster.update_health_bar(screen)
 
-        self.all_monsters.draw(screen)
 
-        self.all_tanks.draw(screen)
         for tank in self.all_tanks:
             tank.forward()
             tank.update_health_bar(screen)
+        self.TankEntranceEvent.update_bar(screen)
 
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x < 1100:
             self.player.move_right()
@@ -120,4 +131,3 @@ class Game:
 
     def restart_cycle(self):
         self.TankEntranceEvent.is_wait = False
-

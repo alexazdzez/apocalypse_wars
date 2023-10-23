@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         self.health = 100
         self.max_health = 150
+        self.rocket_ammo = 1
         self.normal_health = 100
         self.attack = 10
         self.velocity = 2
@@ -30,6 +31,8 @@ class Player(pygame.sprite.Sprite):
         elif self.health <= 0:
             self.game.game_over()
 
+    def add_rocket_ammo(self, amount):
+        self.rocket_ammo += amount
 
     def update_health_bar(self, surface):
         pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 10, self.rect.y - 10, self.normal_health, 5])

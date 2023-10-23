@@ -44,6 +44,8 @@ try:
     file.close()
 except:
     pass
+font = pygame.font.SysFont("monospace", 16)
+best_score_text = font.render(f"Best score : {game.best_score}", 1, (0, 0, 0))
 while running:
 
     screen.blit(background, (0, 0))
@@ -54,7 +56,7 @@ while running:
         font = pygame.font.SysFont("monospace", 16)
 
         difficulty_text = font.render(f"difficulty : {game.difficulty}", 1, (0, 0, 0))
-        help_difficulty_text = font.render(f"1 = easy, 2 = normal, 3 = hard, 4 = extreme", 1, (0, 0, 0))
+        help_difficulty_text = font.render(f"1 = easy, 2 = normal, 3 = hard, 4 = extreme, 5 = gamer", 1, (0, 0, 0))
 
         screen.blit(difficulty_text, (200, 20))
         screen.blit(help_difficulty_text, (200, 40))
@@ -63,6 +65,7 @@ while running:
     else:
         screen.blit(playbt, playbt_rect)
         screen.blit(settingbt, settingbt_rect)
+        screen.blit(best_score_text, (100, 40))
 
     pygame.display.flip()
 
@@ -99,6 +102,8 @@ while running:
                 elif game.difficulty == 3:
                     game.difficulty = 4
                 elif game.difficulty == 4:
+                    game.difficulty = 5
+                elif game.difficulty == 5:
                     game.difficulty = 1
 
     clock.tick(FPS)
