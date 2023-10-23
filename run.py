@@ -6,6 +6,7 @@ from game import Game
 pygame.init()
 
 clock = pygame.time.Clock()
+#todo fix fps
 FPS = 512
 
 pygame.display.set_caption("Apocalypse Wars")

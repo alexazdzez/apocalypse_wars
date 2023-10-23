@@ -12,7 +12,7 @@ class Enemies(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 0.3
-        self.image = pygame.image.load('assets/mummy.png')
+        self.image = pygame.transform.scale(pygame.image.load('assets/mummy.png'), (100, 75))
         self.rect = self.image.get_rect()
         self.rect.x = 1200 + random.randint(0, 300)
         self.rect.y = 550
