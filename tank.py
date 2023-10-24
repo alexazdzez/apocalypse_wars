@@ -1,6 +1,5 @@
 import pygame
-
-from run import game
+import game
 
 
 class Tank(pygame.sprite.Sprite):

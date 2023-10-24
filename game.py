@@ -89,9 +89,11 @@ class Game:
 
         score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
         best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
+        rocket_ammo_text = font.render(f"rocket ammo : {self.player.rocket_ammo}", 1, (0, 0, 0))
 
         screen.blit(score_text, (100, 20))
         screen.blit(best_score_text, (100, 40))
+        screen.blit(rocket_ammo_text, (100, 60))
 
         self.all_monsters.draw(screen)
         self.all_tanks.draw(screen)
