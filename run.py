@@ -7,7 +7,12 @@ pygame.init()
 
 clock = pygame.time.Clock()
 #todo fix fps
-FPS = 512
+#todo create mega boss
+#todo fix life/difficulty
+#todo best score
+#todo create fraction for kill
+#todo fix tank crash
+FPS = 2048
 
 pygame.display.set_caption("Apocalypse Wars")
 screen = pygame.display.set_mode((1230, 670))
@@ -35,17 +40,26 @@ difficultybt_rect.y = math.ceil(screen.get_height() / 2.5)
 game = Game()
 
 running = True
-# noinspection PyBroadException
 try:
     file = open('assets/saves/save', 'rb')
     sauvegarde = pickle.load(file)
     game.difficulty = sauvegarde[0]
     game.best_score = sauvegarde[1]
+
+    game.last_killed_zombie = sauvegarde[2]
+    game.last_killed_tank = sauvegarde[3]
+
+    game.best_killed_zombie = sauvegarde[4]
+    game.best_killed_tank = sauvegarde[5]
     file.close()
 except:
     pass
 font = pygame.font.SysFont("monospace", 16)
 best_score_text = font.render(f"Best score : {game.best_score}", 1, (0, 0, 0))
+last_killed_zombie_text = font.render(f"last killed zombie : {game.last_killed_zombie}", 1, (0, 0, 0))
+last_killed_tank_text = font.render(f"last killed tank : {game.last_killed_tank}", 1, (0, 0, 0))
+best_killed_zombie_text = font.render(f"best killed zombie : {game.best_killed_zombie}", 1, (0, 0, 0))
+best_killed_tank_text = font.render(f"best killed tank : {game.best_killed_tank}", 1, (0, 0, 0))
 while running:
 
     screen.blit(background, (0, 0))
@@ -66,6 +80,10 @@ while running:
         screen.blit(playbt, playbt_rect)
         screen.blit(settingbt, settingbt_rect)
         screen.blit(best_score_text, (100, 40))
+        screen.blit(last_killed_zombie_text, (100, 60))
+        screen.blit(last_killed_tank_text, (100, 80))
+        screen.blit(best_killed_zombie_text, (100, 100))
+        screen.blit(best_killed_tank_text, (100, 120))
 
     pygame.display.flip()
 

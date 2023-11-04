@@ -15,6 +15,10 @@ class Game:
         self.all_players.add(self.player)
         self.best_score = 0
         self.before_boss = 6
+        self.last_killed_zombie = 0
+        self.last_killed_tank = 0
+        self.best_killed_zombie = 0
+        self.best_killed_tank = 0
         self.difficulty = 2
         self.all_tanks = pygame.sprite.Group()
         self.TankEntranceEvent = TankEntranceEvent(self)
@@ -35,6 +39,8 @@ class Game:
         self.is_playing = 0
 
     def start(self):
+        self.last_killed_zombie = 0
+        self.last_killed_tank = 0
         self.is_playing = 1
         self.player.rect = self.player.normal_rect
         if self.difficulty == 1:
@@ -70,7 +76,11 @@ class Game:
         file = open('assets/saves/save', 'wb')
         sauvegarde = [
             self.difficulty,
-            self.best_score
+            self.best_score,
+            self.last_killed_zombie,
+            self.last_killed_tank,
+            self.best_killed_zombie,
+            self.best_killed_tank
         ]
         pickle.dump(sauvegarde, file)
         file.close()
@@ -86,7 +96,18 @@ class Game:
 
 
     def update(self, screen):
+
+        if self.last_killed_zombie > self.best_killed_zombie:
+            self.best_killed_zombie = self.last_killed_zombie
+        if self.last_killed_tank > self.best_killed_tank:
+            self.best_killed_tank = self.last_killed_tank
+
         font = pygame.font.SysFont("monospace", 16)
+
+        last_killed_zombie_text = font.render(f"last killed zombie : {self.last_killed_zombie}", 1, (0, 0, 0))
+        last_killed_tank_text = font.render(f"last killed tank : {self.last_killed_tank}", 1, (0, 0, 0))
+        best_killed_zombie_text = font.render(f"best killed zombie : {self.best_killed_zombie}", 1, (0, 0, 0))
+        best_killed_tank_text = font.render(f"best killed tank : {self.best_killed_tank}", 1, (0, 0, 0))
 
         score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
         best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
@@ -95,6 +116,10 @@ class Game:
         screen.blit(score_text, (100, 20))
         screen.blit(best_score_text, (100, 40))
         screen.blit(rocket_ammo_text, (100, 60))
+        screen.blit(last_killed_zombie_text, (100, 80))
+        screen.blit(last_killed_tank_text, (100, 100))
+        screen.blit(best_killed_zombie_text, (100, 120))
+        screen.blit(best_killed_tank_text, (100, 140))
 
         self.all_monsters.draw(screen)
         self.all_tanks.draw(screen)

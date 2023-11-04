@@ -21,6 +21,7 @@ class Enemies(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
+            self.game.last_killed_zombie += 1
             if not self.game.TankEntranceEvent.is_wait:
                 self.velocity = random.randint(1, 2)
                 self.rect.x = 1200 + random.randint(0, 300)

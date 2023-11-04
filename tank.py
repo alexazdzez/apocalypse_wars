@@ -20,6 +20,7 @@ class Tank(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
+            self.game.last_killed_tank += 1
             if self.game.difficulty == 1:
                 self.game.player.add_rocket_ammo(4)
             if self.game.difficulty == 2:

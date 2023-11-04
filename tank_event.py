@@ -30,6 +30,7 @@ class TankEntranceEvent:
             self.game.before_boss -= 1
             if self.game.before_boss <= 0:
                 print("mega boss")
+                self.game.before_boss = 6
             else:
                 self.tank_mode = True
                 self.tanks_entrance()
