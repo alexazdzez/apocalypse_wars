@@ -14,6 +14,7 @@ class Game:
         self.tank = Tank(self)
         self.all_players.add(self.player)
         self.best_score = 0
+        self.before_boss = 6
         self.difficulty = 2
         self.all_tanks = pygame.sprite.Group()
         self.TankEntranceEvent = TankEntranceEvent(self)

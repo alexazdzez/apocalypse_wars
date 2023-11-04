@@ -26,9 +26,13 @@ class TankEntranceEvent:
     def attempt_tank(self):
         if self.is_full_loaded() and len(self.game.all_monsters) == 0:
             self.reset_percent()
-            self.tank_mode = True
             self.nb_cycle += 1
-            self.tanks_entrance()
+            self.game.before_boss -= 1
+            if self.game.before_boss <= 0:
+                print("mega boss")
+            else:
+                self.tank_mode = True
+                self.tanks_entrance()
         elif self.is_full_loaded():
             self.is_wait = True
 
