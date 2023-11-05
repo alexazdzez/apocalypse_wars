@@ -7,7 +7,7 @@ class Tank(pygame.sprite.Sprite):
         super().__init__()
         self.game = game
         self.loot = 10
-        self.velocity = 1
+        self.velocity = 2
         self.health = 100
         self.max_health = 100
         self.attack = 0.1

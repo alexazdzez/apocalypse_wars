@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.rocket_ammo = 1
         self.normal_health = 100
         self.attack = 10
-        self.velocity = 2
+        self.velocity = 4
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/player.png')
         self.rect = self.image.get_rect()
@@ -40,7 +40,8 @@ class Player(pygame.sprite.Sprite):
 
     def move_right(self):
         if not pygame.sprite.spritecollide(self, self.game.all_monsters, False, pygame.sprite.collide_mask):
-            self.rect.x += self.velocity
+            if not pygame.sprite.spritecollide(self, self.game.all_tanks, False, pygame.sprite.collide_mask):
+                self.rect.x += self.velocity
 
     def move_left(self):
         self.rect.x -= self.velocity

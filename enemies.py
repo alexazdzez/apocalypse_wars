@@ -6,7 +6,7 @@ class Enemies(pygame.sprite.Sprite):
 
     def __init__(self, game):
         super().__init__()
-        self.velocity = random.randint(1, 2)
+        self.velocity = random.randint(2, 4)
         self.game = game
         self.loot = 10
         self.health = 100

@@ -25,7 +25,10 @@ class Game:
         self.pressed = {}
         self.all_monsters = pygame.sprite.Group()
         self.score = 0
-        self.normal_chance = 2
+        self.is_playing = 0
+        self.chance = 3
+
+    def start(self):
         if self.difficulty == 1:
             self.chance = 3
         elif self.difficulty == 2:
@@ -36,9 +39,6 @@ class Game:
             self.chance = 1
         elif self.difficulty == 5:
             self.chance = 0
-        self.is_playing = 0
-
-    def start(self):
         self.last_killed_zombie = 0
         self.last_killed_tank = 0
         self.is_playing = 1
@@ -73,27 +73,24 @@ class Game:
         self.is_playing = 2
 
     def game_over(self):
+        self.save()
+        self.all_monsters = pygame.sprite.Group()
+        self.player.all_projectiles = pygame.sprite.Group()
+        self.player.health = self.player.normal_health
+        self.TankEntranceEvent.percent = 0
+        self.score = 0
+        self.is_playing = 0
+
+    def save(self):
         file = open('assets/saves/save', 'wb')
         sauvegarde = [
             self.difficulty,
             self.best_score,
-            self.last_killed_zombie,
-            self.last_killed_tank,
             self.best_killed_zombie,
             self.best_killed_tank
         ]
         pickle.dump(sauvegarde, file)
         file.close()
-        self.all_monsters = pygame.sprite.Group()
-        self.player.all_projectiles = pygame.sprite.Group()
-        self.player.health = self.player.normal_health
-        self.chance = self.normal_chance
-        self.TankEntranceEvent.percent = 0
-        if self.score > self.best_score:
-            self.best_score = self.score
-        self.score = 0
-        self.is_playing = 0
-
 
     def update(self, screen):
 
@@ -101,14 +98,16 @@ class Game:
             self.best_killed_zombie = self.last_killed_zombie
         if self.last_killed_tank > self.best_killed_tank:
             self.best_killed_tank = self.last_killed_tank
+        if self.score > self.best_score:
+            self.best_score = self.score
 
         font = pygame.font.SysFont("monospace", 16)
 
-        last_killed_zombie_text = font.render(f"last killed zombie : {self.last_killed_zombie}", 1, (0, 0, 0))
-        last_killed_tank_text = font.render(f"last killed tank : {self.last_killed_tank}", 1, (0, 0, 0))
+        killed_zombie_text = font.render(f"killed zombie : {self.last_killed_zombie}", 1, (0, 0, 0))
+        killed_tank_text = font.render(f"killed tank : {self.last_killed_tank}", 1, (0, 0, 0))
         best_killed_zombie_text = font.render(f"best killed zombie : {self.best_killed_zombie}", 1, (0, 0, 0))
         best_killed_tank_text = font.render(f"best killed tank : {self.best_killed_tank}", 1, (0, 0, 0))
-
+        life_text = font.render(f"life : {self.chance + 1}", 1, (0, 0, 0))
         score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
         best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
         rocket_ammo_text = font.render(f"rocket ammo : {self.player.rocket_ammo}", 1, (0, 0, 0))
@@ -116,10 +115,11 @@ class Game:
         screen.blit(score_text, (100, 20))
         screen.blit(best_score_text, (100, 40))
         screen.blit(rocket_ammo_text, (100, 60))
-        screen.blit(last_killed_zombie_text, (100, 80))
-        screen.blit(last_killed_tank_text, (100, 100))
+        screen.blit(killed_zombie_text, (100, 80))
+        screen.blit(killed_tank_text, (100, 100))
         screen.blit(best_killed_zombie_text, (100, 120))
         screen.blit(best_killed_tank_text, (100, 140))
+        screen.blit(life_text, (100, 160))
 
         self.all_monsters.draw(screen)
         self.all_tanks.draw(screen)
@@ -134,7 +134,6 @@ class Game:
             monster.forward()
             monster.update_health_bar(screen)
 
-
         for tank in self.all_tanks:
             tank.forward()
             tank.update_health_bar(screen)
@@ -146,7 +145,6 @@ class Game:
             self.player.move_left()
 
         pygame.display.flip()
-
 
     def spawn_monster(self):
         self.all_monsters.add(Enemies(self))
