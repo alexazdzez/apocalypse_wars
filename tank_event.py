@@ -32,7 +32,7 @@ class TankEntranceEvent:
                 print("mega boss")
                 self.game.before_boss = 6
             else:
-                self.game.killed_zombie += len(self.game.all_monsters_fraction_give)
+                self.game.killed_zombie += len(self.game.all_monsters)
                 self.tank_mode = True
                 self.tanks_entrance()
         elif self.is_full_loaded():

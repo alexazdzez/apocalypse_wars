@@ -28,7 +28,6 @@ class Game:
         self.score = 0
         self.is_playing = 0
         self.chance = 3
-        self.all_monsters_fraction_give = pygame.sprite.Group()
 
     def start(self):
         if self.difficulty == 1:
@@ -156,7 +155,7 @@ class Game:
         pygame.display.flip()
 
     def spawn_monster(self):
-        self.all_monsters.add(self.all_monsters.add(Enemies(self)))
+        self.all_monsters.add(Enemies(self))
 
     def spawn_tank(self):
         self.all_tanks.add(Tank(self))

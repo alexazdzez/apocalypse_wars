@@ -6,13 +6,13 @@ from game import Game
 pygame.init()
 
 clock = pygame.time.Clock()
-# todo fix fps
 # todo create mega boss
-# todo fix fraction for kill
 FPS = 60
 
 pygame.display.set_caption("Apocalypse Wars")
-screen = pygame.display.set_mode((1230, 670))
+width = pygame.display.Info().current_w - 40
+height = pygame.display.Info().current_h - 30
+screen = pygame.display.set_mode((width, height))
 
 background = pygame.image.load('assets/bg.jpg')
 
