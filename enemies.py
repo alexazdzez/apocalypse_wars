@@ -10,6 +10,7 @@ class Enemies(pygame.sprite.Sprite):
         self.game = game
         self.loot = 10
         self.health = 100
+        self.give_fraction = True
         self.max_health = 100
         self.attack = 0.3
         self.image = pygame.transform.scale(pygame.image.load('assets/mummy.png'), (175  , 125))
@@ -21,7 +22,9 @@ class Enemies(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
-            self.game.last_killed_zombie += 1
+            if self.give_fraction:
+                self.game.killed_zombie += 1
+            self.game.spawned_zombie += 1
             if not self.game.TankEntranceEvent.is_wait:
                 self.velocity = random.randint(1, 2)
                 self.rect.x = 1200 + random.randint(0, 300)
@@ -38,3 +41,4 @@ class Enemies(pygame.sprite.Sprite):
             self.rect.x -= self.velocity
         else:
             self.game.player.damage(self.attack)
+            self.give_fraction = False

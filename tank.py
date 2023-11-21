@@ -20,7 +20,7 @@ class Tank(pygame.sprite.Sprite):
         self.health -= amount
         if self.health <= 0:
             self.game.add_score(self.loot)
-            self.game.last_killed_tank += 1
+            self.game.killed_tank += 1
             if self.game.difficulty == 1:
                 self.game.player.add_rocket_ammo(4)
             if self.game.difficulty == 2:
@@ -32,8 +32,9 @@ class Tank(pygame.sprite.Sprite):
             if self.game.difficulty == 5:
                 self.game.player.add_rocket_ammo(0.5)
             self.game.all_tanks.remove(self)
-            self.game.spawn_monster()
             self.game.restart_cycle()
+            self.game.spawn_monster()
+            self.game.spawned_zombie += 2
             self.game.spawn_monster()
 
     def update_health_bar(self, surface):

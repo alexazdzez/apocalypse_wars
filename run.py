@@ -8,7 +8,7 @@ pygame.init()
 clock = pygame.time.Clock()
 # todo fix fps
 # todo create mega boss
-# todo create fraction for kill
+# todo fix fraction for kill
 FPS = 60
 
 pygame.display.set_caption("Apocalypse Wars")
@@ -47,6 +47,12 @@ try:
     file.close()
 except:
     pass
+if game.killed_zombie > game.best_killed_zombie:
+    game.best_killed_zombie = game.killed_zombie
+if game.killed_tank > game.best_killed_tank:
+    game.best_killed_tank = game.killed_tank
+if game.score > game.best_score:
+    game.best_score = game.score
 font = pygame.font.SysFont("monospace", 16)
 best_score_text = font.render(f"Best score : {game.best_score}", 1, (0, 0, 0))
 best_killed_zombie_text = font.render(f"best killed zombie : {game.best_killed_zombie}", 1, (0, 0, 0))

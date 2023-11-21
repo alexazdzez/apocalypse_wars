@@ -11,12 +11,13 @@ class Game:
     def __init__(self):
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
+        self.spawned_zombie = 0
         self.tank = Tank(self)
         self.all_players.add(self.player)
         self.best_score = 0
         self.before_boss = 6
-        self.last_killed_zombie = 0
-        self.last_killed_tank = 0
+        self.killed_zombie = 0
+        self.killed_tank = 0
         self.best_killed_zombie = 0
         self.best_killed_tank = 0
         self.difficulty = 2
@@ -27,6 +28,7 @@ class Game:
         self.score = 0
         self.is_playing = 0
         self.chance = 3
+        self.all_monsters_fraction_give = pygame.sprite.Group()
 
     def start(self):
         if self.difficulty == 1:
@@ -39,22 +41,25 @@ class Game:
             self.chance = 1
         elif self.difficulty == 5:
             self.chance = 0
-        self.last_killed_zombie = 0
-        self.last_killed_tank = 0
+        self.killed_zombie = 0
+        self.killed_tank = 0
         self.is_playing = 1
         self.player.rect = self.player.normal_rect
         if self.difficulty == 1:
             self.spawn_monster()
             self.spawn_monster()
+            self.spawned_zombie += 2
         elif self.difficulty == 2:
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
+            self.spawned_zombie += 3
         elif self.difficulty == 3:
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
+            self.spawned_zombie += 4
         elif self.difficulty == 4:
             self.spawn_monster()
             self.spawn_monster()
@@ -62,11 +67,13 @@ class Game:
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
+            self.spawned_zombie += 6
         elif self.difficulty == 5:
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
             self.spawn_monster()
+            self.spawned_zombie += 4
             self.spawn_tank()
 
     def setting(self):
@@ -94,23 +101,24 @@ class Game:
 
     def update(self, screen):
 
-        if self.last_killed_zombie > self.best_killed_zombie:
-            self.best_killed_zombie = self.last_killed_zombie
-        if self.last_killed_tank > self.best_killed_tank:
-            self.best_killed_tank = self.last_killed_tank
+        if self.killed_zombie > self.best_killed_zombie:
+            self.best_killed_zombie = self.killed_zombie
+        if self.killed_tank > self.best_killed_tank:
+            self.best_killed_tank = self.killed_tank
         if self.score > self.best_score:
             self.best_score = self.score
 
         font = pygame.font.SysFont("monospace", 16)
 
-        killed_zombie_text = font.render(f"killed zombie : {self.last_killed_zombie}", 1, (0, 0, 0))
-        killed_tank_text = font.render(f"killed tank : {self.last_killed_tank}", 1, (0, 0, 0))
+        killed_zombie_text = font.render(f"killed zombie : {self.killed_zombie}", 1, (0, 0, 0))
+        killed_tank_text = font.render(f"killed tank : {self.killed_tank}", 1, (0, 0, 0))
         best_killed_zombie_text = font.render(f"best killed zombie : {self.best_killed_zombie}", 1, (0, 0, 0))
         best_killed_tank_text = font.render(f"best killed tank : {self.best_killed_tank}", 1, (0, 0, 0))
         life_text = font.render(f"life : {self.chance + 1}", 1, (0, 0, 0))
         score_text = font.render(f"Score : {self.score}", 1, (0, 0, 0))
         best_score_text = font.render(f"Best score : {self.best_score}", 1, (0, 0, 0))
         rocket_ammo_text = font.render(f"rocket ammo : {self.player.rocket_ammo}", 1, (0, 0, 0))
+        zombie_fraction_text = font.render(f"you killed : {self.killed_zombie} / {self.spawned_zombie}", 1, (0, 0, 0))
 
         screen.blit(score_text, (100, 20))
         screen.blit(best_score_text, (100, 40))
@@ -120,6 +128,7 @@ class Game:
         screen.blit(best_killed_zombie_text, (100, 120))
         screen.blit(best_killed_tank_text, (100, 140))
         screen.blit(life_text, (100, 160))
+        screen.blit(zombie_fraction_text, (100, 180))
 
         self.all_monsters.draw(screen)
         self.all_tanks.draw(screen)
@@ -147,7 +156,7 @@ class Game:
         pygame.display.flip()
 
     def spawn_monster(self):
-        self.all_monsters.add(Enemies(self))
+        self.all_monsters.add(self.all_monsters.add(Enemies(self)))
 
     def spawn_tank(self):
         self.all_tanks.add(Tank(self))
